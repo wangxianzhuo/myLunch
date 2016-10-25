@@ -1,5 +1,8 @@
 package com.github.xianzhuo.myLunch;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +17,13 @@ import java.util.concurrent.TimeUnit;
  * 16-10-25
  */
 public class PeriodTask {
+    private static final Logger LOG = LoggerFactory.getLogger(PeriodTask.class);
     private static final int MILLISECOND_PER_DAY = 1000 * 60 * 60 * 24;
     private static final int MILLISECOND_PER_MINUTES = 1000 * 60;
     private static String periodTime = "11:00:00";
 
     public static void main(String... args) {
-        Lunch.LOG.info("Init PeriodTask - period time: [" + periodTime + "]");
+        LOG.info("Init PeriodTask - period time: [" + periodTime + "]");
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         long initDelay = getTimeMillis(periodTime) - System.currentTimeMillis();
@@ -41,13 +45,14 @@ public class PeriodTask {
     }
 }
 class FoodTask implements Runnable {
+    private static final Logger LOG = LoggerFactory.getLogger(FoodTask.class);
     private Lunch lunch = new Lunch();
     @Override
     public void run() {
         try {
             lunch.promptFood();
         } catch (Exception e) {
-            Lunch.LOG.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
     }
 }

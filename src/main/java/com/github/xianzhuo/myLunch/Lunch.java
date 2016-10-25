@@ -14,11 +14,8 @@ import java.util.*;
  * 16-10-25
  */
 public class Lunch {
-    private static final String configPath = "src/resources/log4j.properties";
-    static {
-        PropertyConfigurator.configure(configPath);
-    }
-    public static Logger LOG = LoggerFactory.getLogger(Lunch.class);
+    private static final String configPath = System.getProperty("user.dir") + "/config";
+    private static final Logger LOG = LoggerFactory.getLogger(Lunch.class);
     private static final int WEEK_DAY = 5;
     private List<String> foods = new ArrayList<>();
     private List<String> menu = new ArrayList<>();
@@ -31,7 +28,6 @@ public class Lunch {
 
     public Lunch() {
         initConfig();
-        LOG.info("Init Lunch - config path: " + configPath);
         LOG.info("Init Lunch - foods: [" + toStringList(foods) + "]");
         LOG.info("Init Lunch - menu: [" + toStringList(menu) + "]");
         LOG.info("Init Lunch - week day: [" + WEEK_DAY + "]");
@@ -39,7 +35,7 @@ public class Lunch {
     }
 
     private void initConfig() {
-        File config = new File("src/resources/config");
+        File config = new File(configPath);
         if (!config.exists()) {
             LOG.error("can't find config file");
             return;
