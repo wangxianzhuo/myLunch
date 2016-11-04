@@ -30,4 +30,7 @@ hs_err_pid*
 
 *.log
 .idea
+#data/data.*
+#data/config.json
+data
 
